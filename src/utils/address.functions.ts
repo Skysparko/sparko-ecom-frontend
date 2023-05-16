@@ -34,7 +34,7 @@ export const addAddress = (
     .then((res) => {
       if (res.status === 200) {
         setIsLoading(false);
-        location.href = "/user/addresses";
+        location.href = "/#/user/addresses";
       }
     })
     .catch((error) => {
@@ -78,7 +78,7 @@ export const editAddress = (
     .then((res) => {
       if (res.status === 200) {
         setIsLoading(false);
-        location.href = "/user/addresses";
+        location.href = "/#/user/addresses";
       }
     })
     .catch((error) => {
