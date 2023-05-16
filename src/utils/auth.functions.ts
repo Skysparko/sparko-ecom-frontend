@@ -88,7 +88,7 @@ export const loggingIn = (
           message: "Successfully logged in",
         });
         setIsLoading(false);
-
+        location.href = "/";
       }
     })
     .catch((error) => {
