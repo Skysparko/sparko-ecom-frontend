@@ -8,7 +8,7 @@ export default function Verification() {
   const [response, setResponse] = useState("");
   useEffect(() => {
     //getting token from params in url
-    const token = new URLSearchParams(window.location.search).get("token")!;
+    const token = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("token")!;
     //verifying email address
     verifyEmailAuth(token, setResponse);
   }, []);
