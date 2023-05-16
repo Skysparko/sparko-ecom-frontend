@@ -90,28 +90,52 @@ export default function Home() {
 
   return (
     <div className=" bg-gray-100">
-      <Swiper
-        modules={[Navigation, Pagination, A11y, Autoplay]}
-        slidesPerView={1}
-        navigation
-        loop={true}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
-        }}
-        pagination={{ clickable: true, dynamicBullets: true }}
-      >
-        <SwiperSlide>
-          <img src={bg1} alt="" />
-        </SwiperSlide>
-        {/* <SwiperSlide>
+      {width < 850 ? (
+        <Swiper
+          modules={[Navigation, Pagination, A11y, Autoplay]}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+          }}
+          pagination={{ clickable: true, dynamicBullets: true }}
+        >
+          <SwiperSlide>
+            <img src={bg1} alt="" />
+          </SwiperSlide>
+          {/* <SwiperSlide>
           <img src={bg2} alt="" />
         </SwiperSlide> */}
-        <SwiperSlide>
-          <img src={bg3} alt="" />
-        </SwiperSlide>
-        {/* <SwiperSlide>Slide 4</SwiperSlide> */}
-      </Swiper>
+          <SwiperSlide>
+            <img src={bg3} alt="" />
+          </SwiperSlide>
+          {/* <SwiperSlide>Slide 4</SwiperSlide> */}
+        </Swiper>
+      ) : (
+        <Swiper
+          modules={[Navigation, Pagination, A11y, Autoplay]}
+          slidesPerView={1}
+          navigation
+          loop={true}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+          }}
+          pagination={{ clickable: true, dynamicBullets: true }}
+        >
+          <SwiperSlide>
+            <img src={bg1} alt="" />
+          </SwiperSlide>
+          {/* <SwiperSlide>
+          <img src={bg2} alt="" />
+        </SwiperSlide> */}
+          <SwiperSlide>
+            <img src={bg3} alt="" />
+          </SwiperSlide>
+          {/* <SwiperSlide>Slide 4</SwiperSlide> */}
+        </Swiper>
+      )}
 
       {categories.map(
         (category, index) =>
