@@ -1,10 +1,11 @@
-import React, { SetStateAction, useEffect } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addressType, getAllAddresses } from "../../redux/address.slice";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import {
   deleteAddress,
+  fetchUserAddress,
   setAddressDefault,
 } from "../../utils/address.functions";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -42,13 +43,19 @@ export default function Address(props: Props) {
   const { value: addresses, loading } = addressesState ?? {};
 
   const [showOtherAddress, setShowOtherAddress] = React.useState(false);
+  const [isDefault, setIsDefault] = useState(false);
   useEffect(() => {
     // dispatching all the addresses from server to the redux store
     dispatch(getAllAddresses());
-  }, []);
-
+    const data = fetchUserAddress().then((address) => {
+      // console.log(user.address);
+      address.find((item: addressType) => {
+        item._id === user.address && setIsDefault(true);
+      });
+    });
+  }, [isDefault]);
   const addressCount = addresses.length;
-
+  console.log(isDefault);
   return (
     <article className="grid grid-cols-[1fr,0.2fr] gap-10 max-xl:-mx-10 max-lg:-mx-14  max-md:grid-cols-1 max-sm:-mx-8 max-vxs:-mx-4">
       {!(addressCount === 0) ? (
@@ -56,68 +63,67 @@ export default function Address(props: Props) {
           <h1 className="text-2xl font-semibold ">Your Addresses</h1>
           <section className="flex gap-5">
             {/* if the user address is in the address list then that address will be added to the card  */}
-
-            <label htmlFor={user.address} className="w-full cursor-pointer">
-              {addresses.map(
-                (item, i) =>
-                  item._id === user.address && (
-                    <div
-                      key={i}
-                      className="flex w-full  items-center gap-5 rounded-md border-2 border-gray-500 bg-white p-5  shadow"
-                    >
-                      <input
-                        type="radio"
-                        name="address"
-                        className=" cursor-pointer border  border-black"
-                        id={user.address}
-                        defaultChecked
-                      />
-                      {/* fetched info for address */}
-                      <div className=" grid h-full grid-rows-[1fr,0.1fr]  items-center gap-5 ">
-                        <span className="flex flex-wrap gap-2">
-                          <h1 className="border-r-2 border-black  pr-4 ">
-                            Default Address
-                          </h1>
-                          <h1 className="font-semibold">{item.fullName}</h1>
-                          <h2>{item.address1}</h2>
-                          <h2>{item.address2}</h2>
-                          <h2>
-                            {item.city},{item.state} {item.pinCode}
-                          </h2>
-                          <h2>{item.country}</h2>
-                          <h2>Phone Number:{item.mobileNumber}</h2>
-                        </span>
-                        {/* actions button  */}
-                        <span className="flex gap-2 ">
-                          {/* edit address button */}
-                          <button
-                            className="text-sky-700"
-                            onClick={() =>
-                              navigate(`edit-address?address=${item._id}`)
-                            }
-                          >
-                            Edit
-                          </button>
-                          <span>|</span>
-                          {/* delete address button  */}
-                          <button
-                            className="text-sky-700"
-                            onClick={() => deleteAddress(item._id)}
-                          >
-                            Remove
-                          </button>
-                        </span>
+            {isDefault ? (
+              <label htmlFor={user.address} className="w-full cursor-pointer">
+                {addresses.map(
+                  (item, i) =>
+                    item._id === user.address && (
+                      <div
+                        key={i}
+                        className="flex w-full  items-center gap-5 rounded-md border-2 border-gray-500 bg-white p-5  shadow"
+                      >
+                        <input
+                          type="radio"
+                          name="address"
+                          className=" cursor-pointer border  border-black"
+                          id={user.address}
+                          defaultChecked
+                        />
+                        {/* fetched info for address */}
+                        <div className=" grid h-full grid-rows-[1fr]  items-center gap-5 ">
+                          <span className="flex flex-wrap gap-2">
+                            <h1 className="border-r-2 border-black  pr-4 ">
+                              Default Address
+                            </h1>
+                            <h1 className="font-semibold">{item.fullName}</h1>
+                            <h2>{item.address1}</h2>
+                            <h2>{item.address2}</h2>
+                            <h2>
+                              {item.city},{item.state} {item.pinCode}
+                            </h2>
+                            <h2>{item.country}</h2>
+                            <h2>Phone Number:{item.mobileNumber}</h2>
+                          </span>
+                          {/* actions button  */}
+                          {/* <span className="flex gap-2 ">
+                             edit address button 
+                            <button
+                              className="text-sky-700"
+                              onClick={() =>
+                                navigate(`edit-address?address=${item._id}`)
+                              }
+                            >
+                              Edit
+                            </button>
+                            <span>|</span>
+                            {/* delete address button  
+                            <button
+                              className="text-sky-700"
+                              onClick={() => deleteAddress(item._id)}
+                            >
+                              Remove
+                            </button>
+                          </span> */}
+                        </div>
                       </div>
-                    </div>
-                  )
-              )}
-            </label>
-          </section>
-          {showOtherAddress && (
-            <>
-              {addresses.map(
+                    )
+                )}
+              </label>
+            ) : (
+              addresses.map(
                 (item, i) =>
-                  item._id !== user.address && (
+                  item._id !== user.address &&
+                  i < 1 && (
                     // fetched info for address
                     <section key={i} className="flex gap-5">
                       <label
@@ -130,9 +136,10 @@ export default function Address(props: Props) {
                             name="address"
                             className="cursor-pointer"
                             id={item._id}
+                            defaultChecked
                           />
 
-                          <div className="grid h-full grid-rows-[1fr,0.1fr] gap-5 ">
+                          <div className="grid h-full grid-rows-[1fr] gap-5 ">
                             <span className="flex flex-wrap gap-2">
                               <h1 className="font-semibold">{item.fullName}</h1>
                               <h2>{item.address1}</h2>
@@ -144,39 +151,174 @@ export default function Address(props: Props) {
                               <h2>Phone Number:{item.mobileNumber}</h2>
                             </span>
                             {/* action buttons  */}
-                            <span className=" flex items-center gap-2 ">
-                              {/* edit button  */}
-                              <button
-                                className="text-sky-700"
-                                onClick={() =>
-                                  navigate(`edit-address?address=${item._id}`)
-                                }
-                              >
-                                Edit
-                              </button>
-                              <span>|</span>
-                              {/* remove address  */}
-                              <button
-                                className="text-sky-700"
-                                onClick={() => deleteAddress(item._id)}
-                              >
-                                Remove
-                              </button>
-                              <span>|</span>
-                              {/* set as default address  */}
-                              <button
+                            {/* <span className=" flex items-center gap-2 "> */}
+                            {/* edit button  */}
+                            {/* <button
+                              className="text-sky-700"
+                              onClick={() =>
+                                navigate(`edit-address?address=${item._id}`)
+                              }
+                            >
+                              Edit
+                            </button>
+                            <span>|</span>
+                            {/* remove address  
+                            <button
+                              className="text-sky-700"
+                              onClick={() => deleteAddress(item._id)}
+                            >
+                              Remove
+                            </button> */}
+                            {/* <span>|</span> */}
+                            {/* set as default address  */}
+                            {/* <button
                                 className="text-sky-700"
                                 onClick={() => setAddressDefault(item._id)}
                               >
                                 Set as Default
-                              </button>
-                            </span>
+                              </button> */}
+                            {/* </span> */}
                           </div>
                         </div>
                       </label>
                     </section>
                   )
-              )}
+              )
+            )}
+          </section>
+          {showOtherAddress && (
+            <>
+              {isDefault
+                ? addresses.map(
+                    (item, i) =>
+                      item._id !== user.address && (
+                        // fetched info for address
+                        <section key={i} className="flex gap-5">
+                          <label
+                            htmlFor={item._id}
+                            className="w-full cursor-pointer"
+                          >
+                            <div className="flex w-full gap-5 rounded-md border-2  border-gray-500 bg-white p-5  shadow">
+                              <input
+                                type="radio"
+                                name="address"
+                                className="cursor-pointer"
+                                id={item._id}
+                              />
+
+                              <div className="grid h-full grid-rows-[1fr] gap-5 ">
+                                <span className="flex flex-wrap gap-2">
+                                  <h1 className="font-semibold">
+                                    {item.fullName}
+                                  </h1>
+                                  <h2>{item.address1}</h2>
+                                  <h2>{item.address2}</h2>
+                                  <h2>
+                                    {item.city},{item.state} {item.pinCode}
+                                  </h2>
+                                  <h2>{item.country}</h2>
+                                  <h2>Phone Number:{item.mobileNumber}</h2>
+                                </span>
+                                {/* action buttons  */}
+                                {/* <span className=" flex items-center gap-2 ">
+                            {/* edit button  *
+                            <button
+                              className="text-sky-700"
+                              onClick={() =>
+                                navigate(`edit-address?address=${item._id}`)
+                              }
+                            >
+                              Edit
+                            </button>
+                            <span>|</span>
+                            {/* remove address  *
+                            <button
+                              className="text-sky-700"
+                              onClick={() => deleteAddress(item._id)}
+                            >
+                              Remove
+                            </button>
+                            <span>|</span>
+                            {/* set as default address  *
+                            <button
+                              className="text-sky-700"
+                              onClick={() => setAddressDefault(item._id)}
+                            >
+                              Set as Default
+                            </button>
+                          </span> */}
+                              </div>
+                            </div>
+                          </label>
+                        </section>
+                      )
+                  )
+                : addresses.map(
+                    (item, i) =>
+                      item._id !== user.address &&
+                      i > 0 && (
+                        // fetched info for address
+                        <section key={i} className="flex gap-5">
+                          <label
+                            htmlFor={item._id}
+                            className="w-full cursor-pointer"
+                          >
+                            <div className="flex w-full gap-5 rounded-md border-2  border-gray-500 bg-white p-5  shadow">
+                              <input
+                                type="radio"
+                                name="address"
+                                className="cursor-pointer"
+                                id={item._id}
+                              />
+
+                              <div className="grid h-full grid-rows-[1fr] gap-5 ">
+                                <span className="flex flex-wrap gap-2">
+                                  <h1 className="font-semibold">
+                                    {item.fullName}
+                                  </h1>
+                                  <h2>{item.address1}</h2>
+                                  <h2>{item.address2}</h2>
+                                  <h2>
+                                    {item.city},{item.state} {item.pinCode}
+                                  </h2>
+                                  <h2>{item.country}</h2>
+                                  <h2>Phone Number:{item.mobileNumber}</h2>
+                                </span>
+                                {/* action buttons  */}
+                                {/* <span className=" flex items-center gap-2 ">
+                            {/* edit button  *
+                            <button
+                              className="text-sky-700"
+                              onClick={() =>
+                                navigate(`edit-address?address=${item._id}`)
+                              }
+                            >
+                              Edit
+                            </button>
+                            <span>|</span>
+                            {/* remove address  *
+                            <button
+                              className="text-sky-700"
+                              onClick={() => deleteAddress(item._id)}
+                            >
+                              Remove
+                            </button>
+                            <span>|</span>
+                            {/* set as default address  *
+                            <button
+                              className="text-sky-700"
+                              onClick={() => setAddressDefault(item._id)}
+                            >
+                              Set as Default
+                            </button>
+                          </span> */}
+                              </div>
+                            </div>
+                          </label>
+                        </section>
+                      )
+                  )}
+
               <section>
                 <div
                   className=" cursor-pointer rounded-md border-[3px] border-dashed border-gray-500 bg-white p-5 shadow-lg"
