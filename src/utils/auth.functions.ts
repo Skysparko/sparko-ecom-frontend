@@ -175,7 +175,7 @@ export const resetPassword = async (
         });
         setIsLoading(false);
         setTimeout(() => {
-          location.href = "/authentication";
+          location.href = "/#/authentication";
         }, 3000);
       }
     })
