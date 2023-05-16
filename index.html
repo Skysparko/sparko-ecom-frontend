@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sparko-ecom</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      .loader-wrapper {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #ffffff;
+        display: grid;
+        place-items: center;
+      }
+
+      .loader {
+        border: 16px solid #e3e3e3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+  <script>
+    const global = globalThis;
+  </script>
+</html>
