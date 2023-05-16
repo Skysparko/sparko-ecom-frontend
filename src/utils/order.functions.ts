@@ -25,7 +25,7 @@ export const newOrder = (
     })
     .then((res) => {
       setIsLoading(false);
-      location.href = "/order-placed";
+      location.href = "/#/order-placed";
     })
     .catch((error) => {
       setIsLoading(false);
@@ -48,7 +48,7 @@ export function deleteOrder(orderId: string) {
     .delete("/order/" + orderId)
     .then((res) => {
       console.log(res);
-      window.location.href = "/user/orders";
+      window.location.href = "/#/user/orders";
     })
     .catch((error) => {
       console.log("error deleting order", error);
