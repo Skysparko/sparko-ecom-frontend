@@ -84,7 +84,7 @@ export const updateEmailAddress = (
         setShowOtpResponse(true);
         setResponse({ type: "success", message: response.data });
         setTimeout(() => {
-          location.href = "/user";
+          location.href = "/#/user";
         }, 1000);
       }
     })
@@ -123,7 +123,7 @@ export const updatePassword = (
 
         setResponse({ type: "success", message: response.data });
         setTimeout(() => {
-          location.href = "/user";
+          location.href = "/#/user";
         }, 1000);
       }
     })
