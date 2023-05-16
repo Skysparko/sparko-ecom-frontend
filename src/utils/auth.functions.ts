@@ -207,7 +207,7 @@ export const logout = () => {
             isAuthenticated: false,
           })
         );
-        location.href = "/";
+        
       }
     })
     .catch((err) => {
