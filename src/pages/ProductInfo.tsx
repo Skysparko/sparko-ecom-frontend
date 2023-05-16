@@ -93,7 +93,7 @@ export default function ProductInfo() {
     window.innerWidth > 0 ? window.innerWidth : screen.width
   );
   useEffect(() => {
-    const productId = new URLSearchParams(window.location.search).get("p")!;
+    const productId = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("p")!;
     if (productId) {
       setProductId(productId);
 
