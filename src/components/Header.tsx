@@ -128,7 +128,7 @@ export default function Header() {
           className="grid select-none grid-cols-[1fr,2.5fr,1fr] border border-black  bg-sky-900 py-2  text-2xl bg-blend-hue  max-lg:text-xl max-md:text-lg"
         >
           {/* hamburger column and the name of the company */}
-          <div className=" flex  items-center  gap-5  pl-5 text-3xl text-white max-lg:text-2xl max-md:pl-2 max-sm:gap-2 max-sm:text-[1.4rem]">
+          <div className=" flex  items-center  gap-5  pl-5 text-3xl text-white max-lg:text-2xl max-md:pl-2 max-sm:gap-2 ">
             {user.isAuthenticated && (
               <button className="cursor-pointer " onClick={openSidebar}>
                 <VscThreeBars />
@@ -308,7 +308,7 @@ export default function Header() {
               </span>
             )}
             {/* cart section */}
-            <button className="relative  text-2xl max-sm:text-[1.3rem] max-xs:text-[1.25rem] ">
+            <button className="relative  text-2xl  ">
               <Link to="/cart">
                 <RiShoppingCartFill />
                 {user.isAuthenticated && (
@@ -327,7 +327,7 @@ export default function Header() {
             <form
               id="search_mobile_form"
               method="get"
-              className=" relative flex justify-center border  border-black text-base focus-within:outline focus-within:outline-2 focus-within:outline-blue-300 max-sm:text-sm"
+              className=" relative flex justify-center border  border-black text-base focus-within:outline focus-within:outline-2 focus-within:outline-blue-300 "
               onSubmit={(e) => {
                 e.preventDefault();
                 navigate(
