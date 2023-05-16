@@ -39,6 +39,19 @@ const highlightSelected = (i: number) => {
   console.log(i);
 };
 export default function ProductInfo() {
+  const user = useSelector(
+    (state: {
+      user: {
+        email: string;
+        isAuthenticated: boolean;
+        name: string;
+        gender: string;
+        role: string;
+        id: string;
+        pfp: string;
+      };
+    }) => state.user
+  );
   // getting products from redux store
   const productsState = useSelector(
     (state: { product: { value: Array<productType>; loading: boolean } }) =>
@@ -93,7 +106,9 @@ export default function ProductInfo() {
     window.innerWidth > 0 ? window.innerWidth : screen.width
   );
   useEffect(() => {
-    const productId = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("p")!;
+    const productId = new URLSearchParams(
+      `?${window.location.href.split("?")[1]}`
+    ).get("p")!;
     if (productId) {
       setProductId(productId);
 
@@ -326,16 +341,26 @@ export default function ProductInfo() {
 
             <span className=" m-auto flex gap-5 py-5 max-vs:flex-col">
               <button
-                className="rounded border border-gray-400 px-5 py-2 shadow max-vs:m-auto"
-                onClick={() => navigate("/checkout?p=" + productId)}
+                className="rounded border border-gray-400 px-5 py-2 shadow"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  user.isAuthenticated
+                    ? navigate("/checkout?p=" + productId)
+                    : navigate("/authentication");
+                }}
               >
                 Buy Now
               </button>
               <button
-                className="rounded border border-gray-400 bg-sky-700 px-5 py-2 text-white shadow max-vs:m-auto"
-                onClick={() => {
-                  addItemToCart(`${productId}`);
-                  window.location.reload();
+                className="rounded border border-gray-400 bg-sky-700 px-5 py-2 text-white shadow"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (user.isAuthenticated) {
+                    addItemToCart(productId);
+                    window.location.reload();
+                  } else {
+                    navigate("/authentication");
+                  }
                 }}
               >
                 Add to Cart
