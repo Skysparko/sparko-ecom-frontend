@@ -4,6 +4,7 @@ import {
   Routes,
   useNavigation,
   useNavigate,
+  HashRouter,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
@@ -105,7 +106,7 @@ function App() {
   return (
     <>
       {!isLoading ? (
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             {/* Dashboard section,
              access: any authorized role but not user
@@ -196,7 +197,7 @@ function App() {
               </Route>
             )}
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       ) : (
         <div className="flex h-[100vh] items-center justify-center border border-black">
           <BallTriangle
