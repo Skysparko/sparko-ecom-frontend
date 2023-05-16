@@ -122,8 +122,10 @@ export default function Home() {
               className="my-5 border border-gray-400 bg-white py-5"
             >
               <span className="mb-5 ml-5 flex flex-col gap-2">
-                <h1 className="text-3xl font-semibold ">{category.name}</h1>
-                <p className="text-sm text-gray-600 line-clamp-1">
+                <h1 className="text-3xl font-semibold max-md:text-2xl max-vs:text-xl ">
+                  {category.name}
+                </h1>
+                <p className="text-sm text-gray-600 line-clamp-1 max-md:text-xs">
                   {category.description}
                 </p>
               </span>
@@ -146,7 +148,7 @@ export default function Home() {
                   },
                 }}
                 spaceBetween={20}
-                className=" px-10 py-5"
+                className=" px-10 py-5 max-md:py-0"
               >
                 {products.map(
                   (item, i) =>
@@ -162,7 +164,7 @@ export default function Home() {
                         <img
                           src={item.images[0]}
                           alt=""
-                          className="m-auto h-32 w-32  object-contain"
+                          className="m-auto h-32 w-32  object-contain max-md:h-28 max-md:w-28"
                         />
                         <span className="flex flex-col gap-2">
                           <h1 className="font-medium line-clamp-1">
@@ -186,7 +188,7 @@ export default function Home() {
                             <h4 className="">{`${item.price}`}</h4>
                           )}
                         </span>
-                        <span className="m-auto flex gap-2">
+                        <span className="m-auto flex gap-2 max-md:text-sm max-vs:flex-col">
                           <button
                             className="rounded border border-gray-400 px-5 py-2 shadow"
                             onClick={(e) => {
@@ -204,7 +206,7 @@ export default function Home() {
                               e.stopPropagation();
                               if (user.isAuthenticated) {
                                 addItemToCart(item._id);
-                                window.location.reload();
+                                // window.location.reload();
                               } else {
                                 navigate("/authentication");
                               }
