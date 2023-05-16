@@ -198,7 +198,7 @@ export default function ProductInfo() {
       </div>
 
       <article id="content" className="hidden ">
-        <section className="hidden h-96   max-md:block">
+        <section className="hidden h-96 py-5 max-md:block  max-md:h-48">
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
             slidesPerView={1}
@@ -210,7 +210,7 @@ export default function ProductInfo() {
                 <SwiperSlide key={i}>
                   <img
                     src={image}
-                    className="h-96 w-[100%] object-contain"
+                    className="h-96 w-[100%] object-contain max-md:h-48"
                     alt=""
                   />
                 </SwiperSlide>
