@@ -63,7 +63,7 @@ export default function AddAddress() {
     }) => state.user
   );
   useEffect(() => {
-    const addressId = new URLSearchParams(window.location.search).get(
+    const addressId = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get(
       "address"
     )!;
     //if the url have the address id then using this logic we get all the data and place it in the fields
