@@ -89,7 +89,7 @@ export const loggingIn = (
         });
         setIsLoading(false);
 
-        location.href = "/";
+<!--         location.href = "/"; -->
       }
     })
     .catch((error) => {
