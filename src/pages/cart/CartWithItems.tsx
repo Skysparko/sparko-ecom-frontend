@@ -99,35 +99,37 @@ export default function CartWithItems() {
                 product._id === item.productID && (
                   <div
                     key={index}
-                    className="flex gap-5 border-b  p-5 max-vs:text-base"
+                    className="flex gap-5 border-b  p-5 max-vs:flex-col  max-vs:text-sm "
                   >
-                    <input
-                      type="checkbox"
-                      name="products"
-                      id={item._id}
-                      defaultChecked
-                      className="cursor-pointer"
-                      onChange={() => {
-                        const data = document.querySelectorAll(
-                          "input[name=products]:checked"
-                        );
-                        setChange(!change);
+                    <span className="flex gap-5">
+                      <input
+                        type="checkbox"
+                        name="products"
+                        id={item._id}
+                        defaultChecked
+                        className="cursor-pointer"
+                        onChange={() => {
+                          const data = document.querySelectorAll(
+                            "input[name=products]:checked"
+                          );
+                          setChange(!change);
 
-                        const items: Array<string> = [];
-                        for (let index = 0; index < data.length; index++) {
-                          items.push(data[index].id);
-                        }
-                        setSelectedItems(items);
-                        console.log(items);
-                        // window.location.reload();
-                      }}
-                    />
-                    <img
-                      src={product.images[0]}
-                      alt=""
-                      className="h-28 w-28 rounded border border-gray-200 object-contain shadow"
-                    />
-                    <section className="flex flex-col gap-2">
+                          const items: Array<string> = [];
+                          for (let index = 0; index < data.length; index++) {
+                            items.push(data[index].id);
+                          }
+                          setSelectedItems(items);
+                          console.log(items);
+                          // window.location.reload();
+                        }}
+                      />
+                      <img
+                        src={product.images[0]}
+                        alt=""
+                        className="h-28 w-28 rounded border border-gray-200 object-contain shadow max-md:h-20 max-md:w-20"
+                      />
+                    </span>
+                    <section className="flex flex-col gap-2 ">
                       <h1 className="font-medium line-clamp-1">
                         {product.title}
                       </h1>
