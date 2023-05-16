@@ -52,7 +52,7 @@ export default function AddProduct() {
   };
 
   useEffect(() => {
-    const productId = new URLSearchParams(window.location.search).get(
+    const productId = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get(
       "product"
     )!;
     if (productId) {
