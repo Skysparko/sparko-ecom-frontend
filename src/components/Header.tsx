@@ -117,9 +117,11 @@ export default function Header() {
       <div className="" id="extra"></div>
       <div className={`fixed top-0  z-10  w-full`} ref={header}>
         {/* Side bar */}
-        <aside>
-          <SideBar />
-        </aside>
+        {user.isAuthenticated && (
+          <aside>
+            <SideBar />
+          </aside>
+        )}
         {/*  Three grid containing name search and function */}
         <article
           id="header"
@@ -127,9 +129,11 @@ export default function Header() {
         >
           {/* hamburger column and the name of the company */}
           <div className=" flex  items-center  gap-5  pl-5 text-3xl text-white max-lg:text-2xl max-md:pl-2 max-sm:gap-2 max-sm:text-[1.4rem]">
-            <button className="cursor-pointer " onClick={openSidebar}>
-              <VscThreeBars />
-            </button>
+            {user.isAuthenticated && (
+              <button className="cursor-pointer " onClick={openSidebar}>
+                <VscThreeBars />
+              </button>
+            )}
 
             <h1 className="cursor-pointer" onClick={() => navigate("/")}>
               SStore
@@ -307,9 +311,11 @@ export default function Header() {
             <button className="relative  text-2xl max-sm:text-[1.3rem] max-xs:text-[1.25rem] ">
               <Link to="/cart">
                 <RiShoppingCartFill />
-                <span className="absolute top-0 right-0 -mr-2 rounded-full border border-green-600 bg-green-500 px-1.5 py-0.5 text-xs">
-                  {cartItemCount}
-                </span>
+                {user.isAuthenticated && (
+                  <span className="absolute top-0 right-0 -mr-2 rounded-full border border-green-600 bg-green-500 px-1.5 py-0.5 text-xs">
+                    {cartItemCount}
+                  </span>
+                )}
               </Link>
             </button>
           </div>
