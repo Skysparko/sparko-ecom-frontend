@@ -48,11 +48,11 @@ export default function SearchResult() {
   const { value: subCategories } = subCategoriesState ?? {};
 
   useEffect(() => {
-    const category = new URLSearchParams(window.location.search).get(
+    const category = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get(
       "category"
     )!;
     setCategory(category);
-    const searchQuery = new URLSearchParams(window.location.search).get(
+    const searchQuery = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get(
       "term"
     )!;
     setSearchQuery(searchQuery);
