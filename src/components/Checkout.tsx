@@ -51,8 +51,8 @@ export default function Checkout() {
     { productID: "", quantity: 0 },
   ]);
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("p")!;
-    const cart = new URLSearchParams(window.location.search).get("cart")!;
+    const id = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("p")!;
+    const cart = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("cart")!;
     const cartIds = id.split("X").filter((i) => i !== "");
     console.log(cartIds);
     if (cart) {
