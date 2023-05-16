@@ -49,7 +49,7 @@ export default function EditOrder() {
 
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("order")!;
+    const id = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("order")!;
     setOrderId(id);
     let quantity = 0;
     orders.find((order) => {
