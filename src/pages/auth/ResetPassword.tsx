@@ -24,7 +24,7 @@ export default function ResetPassword() {
     type: "info",
     message: "Please enter your registered email here !",
   });
-  const token = new URLSearchParams(window.location.search).get("token")!;
+  const token = new URLSearchParams( `?${window.location.href.split("?")[1]}`).get("token")!;
   useEffect(() => {
     //checking reset link
     verifyResetLink(token, setIsTokenValid);
