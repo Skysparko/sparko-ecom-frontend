@@ -91,9 +91,13 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-#search #categories_mobile {
+#search  {
  border-radius: 0;
   -webkit-border-radius:0;
   -webkit-appearance:none;
 }
-
+#categories_mobile{
+ border-radius: 0;
+  -webkit-border-radius:0;
+  -webkit-appearance:none;
+}
